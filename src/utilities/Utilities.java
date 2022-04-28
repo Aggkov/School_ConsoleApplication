@@ -29,8 +29,8 @@ public final class Utilities {
         boolean quit = false;
         while (!quit) {
             System.out.print("Choose your action: ");
-            int action = sc.nextInt();
-            sc.nextLine();
+
+            int action = integerInput();
 
             switch (action) {
                 case 1:
@@ -115,7 +115,7 @@ public final class Utilities {
         Scanner sc = new Scanner(System.in);
         while (true) {
             if (!sc.hasNextInt()) {
-                System.out.println("Please type an integer: ");
+                System.out.print("Please type an integer: ");
                 sc.next();
             } else {
                 break;
