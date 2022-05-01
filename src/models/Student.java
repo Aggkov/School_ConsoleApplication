@@ -1,10 +1,12 @@
 package models;
 
-import utilities.Utilities;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 
 
 public class Student implements Comparable<Student> {
@@ -12,18 +14,26 @@ public class Student implements Comparable<Student> {
     private String lastName;
     private LocalDate dateOfBirth;
     private int tuitionFees;
-    private ArrayList <models.Assignment> assignments = new ArrayList<>();
+    private ArrayList <Assignment> assignments = new ArrayList<>();
+
+    final static int numOfAssignments = 4;
 
     public Student() {
         readStudent(new Scanner(System.in));
 
-        System.out.println("How many assignments would you like to assign to this student? :");
-        int numOfAssignments = Utilities.integerInput();
+        System.out.println("Please insert data for 4 Assignments for this Student :");
+//        int numOfAssignments = Utilities.integerInput();
         for(int i = 0; i < numOfAssignments; i++) {
-            models.Assignment assignment = new models.Assignment();
+            Assignment assignment = new Assignment();
+
+            // Add assignment to Student Structure
             this.assignments.add(assignment);
-            models.PrivateSchool.allAssignments.add(assignment);
-            models.Course.assignments.add(assignment);
+
+            // Add assignment to Master List of all Assignments
+            PrivateSchool.allAssignments.add(assignment);
+
+            // Add assignment to Course class Structure
+            Course.assignments.add(assignment);
         }
     }
 
@@ -70,7 +80,7 @@ public class Student implements Comparable<Student> {
         System.out.println("Student was successfully created!");
     }
 
-    public boolean addAssignment(models.Assignment assignment) {
+    public boolean addAssignment(Assignment assignment) {
 
             if (findAssignment(assignment) < 0) {
                 assignments.add(assignment);
@@ -80,7 +90,7 @@ public class Student implements Comparable<Student> {
             return false;
     }
 
-    private int findAssignment(models.Assignment assignment) {
+    private int findAssignment(Assignment assignment) {
         int pos = 0;
         try {
             pos = this.assignments.indexOf(assignment);
@@ -99,13 +109,13 @@ public class Student implements Comparable<Student> {
     public void showListOfAssignments() {
         System.out.println("Assignments for student: " + getFirstName().toUpperCase() + " " + getLastName().toUpperCase());
         System.out.println("------------------------------------------------------------------------------------");
-        for(models.Assignment assignment: this.assignments) {
+        for(Assignment assignment: this.assignments) {
             assignment.showAssignmentDetails();
         }
     }
 
-    public boolean hasAssignment(LocalDate start, LocalDate end) {
-        for(models.Assignment assignment: this.assignments) {
+    public boolean hasAssignmentDue (LocalDate start, LocalDate end) {
+        for(Assignment assignment: this.assignments) {
             if(assignment.getSubDateTime().isAfter(start) &&
                     assignment.getSubDateTime().isBefore(end)) {
                 return true;
@@ -114,9 +124,10 @@ public class Student implements Comparable<Student> {
         return false;
     }
 
-    public void showListOfAssignmentsDue(LocalDate start, LocalDate end) {
-        List<models.Assignment> allAssignmentsDue = new ArrayList<>();
-        for(models.Assignment assignment: this.assignments) {
+    public void showListOfAssignmentsDue (LocalDate start, LocalDate end) {
+        List<Assignment> allAssignmentsDue = new ArrayList<>();
+
+        for(Assignment assignment: this.assignments) {
             if (assignment.getSubDateTime().isAfter(start) && assignment.getSubDateTime().isBefore(end)) {
                     allAssignmentsDue.add(assignment);
                     System.out.println(allAssignmentsDue);
@@ -136,9 +147,6 @@ public class Student implements Comparable<Student> {
 
     public String getLastName() {
         return lastName;
-    }
-    public int getFees() {
-        return tuitionFees;
     }
 
     public ArrayList<models.Assignment> getAssignments() {

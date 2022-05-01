@@ -80,44 +80,9 @@ public class Assignment {
         return oralMark == that.oralMark && totalMark == that.totalMark && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(subDateTime, that.subDateTime);
     }
 
-    public int getTotalMark() {
-        return totalMark;
-    }
-
-    public void setTotalMark(int totalMark) {
-        this.totalMark = totalMark;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public LocalDate getSubDateTime() {
         return subDateTime;
-    }
-
-    public void setSubDateTime(LocalDate subDateTime) {
-        this.subDateTime = subDateTime;
-    }
-
-    public int getOralMark() {
-        return oralMark;
-    }
-
-    public void setOralMark(int oralMark) {
-        this.oralMark = oralMark;
     }
 
     @Override

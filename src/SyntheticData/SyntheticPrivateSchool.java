@@ -277,8 +277,9 @@ public class SyntheticPrivateSchool {
             }
         }
 
+        System.out.println(" STUDENTS IN MULTIPLE COURSES ");
+        System.out.println("------------------------------");
         for(Student student: studentsInMoreThanOneCourse) {
-            System.out.println(" STUDENTS IN MULTIPLE COURSES \n");
             System.out.println(student.getFirstName().toUpperCase() + " " + student.getLastName().toUpperCase() + " \n");
         }
     }
@@ -322,28 +323,28 @@ public class SyntheticPrivateSchool {
         }
 
         for(Student student: allStudents) {
-            if(student.hasAssignment(start, end)) {
+            if(student.hasAssignmentDue (start, end)) {
                 System.out.println("\nStudent " + student.getFirstName() + " " + student.getLastName() + " " + "has these assignments due: \n");
                 student.showListOfAssignmentsDue(start, end);
             }
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public  List<Course> getAllCourses() {
-        return allCourses;
-    }
-
-    public  Set<Trainer> getAllTrainers() {
-        return allTrainers;
-    }
-
-    public  Set<Student> getAllStudents() {
-        return allStudents;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public  List<Course> getAllCourses() {
+//        return allCourses;
+//    }
+//
+//    public  Set<Trainer> getAllTrainers() {
+//        return allTrainers;
+//    }
+//
+//    public  Set<Student> getAllStudents() {
+//        return allStudents;
+//    }
 
     @Override
     public String toString() {

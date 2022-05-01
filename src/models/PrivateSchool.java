@@ -9,25 +9,26 @@ import java.util.*;
 
 public class PrivateSchool {
     private String name;
-    public static List<models.Course> allCourses = new ArrayList<>();  // Master List for Courses
-    public static Set<models.Trainer> allTrainers = new TreeSet<>();   // Master List for Trainers
-    public static Set<models.Student> allStudents = new TreeSet<>();   // Master List for Students
-    public static List<models.Assignment> allAssignments = new ArrayList<>();  // Master List for Assignments
+    public static List<Course> allCourses = new ArrayList<>();  // Master List for Courses
+    public static Set<Trainer> allTrainers = new TreeSet<>();   // Master Set for Trainers -- All Unique trainers sorted in ascending order
+    public static Set<Student> allStudents = new TreeSet<>();   // Master Set for Students --- All Unique students sorted in ascending order
+    public static List<Assignment> allAssignments = new ArrayList<>();  // Master List for Assignments
+
+    final static int numOfCourses = 4;
 
     public PrivateSchool(String name)  {
         this.name = name;
-        System.out.print("How many courses would you like to add? : ");
-        int numOfCourses = Utilities.integerInput();
+        System.out.print("Please insert data for 4 Courses : ");
 
         for(int i = 0; i < numOfCourses; i++) {
-            allCourses.add(new models.Course());
+            allCourses.add(new Course());
         }
     }
 
     public static void showAllCourses() {
         System.out.println("All Courses: ");
-        for(models.Course c: allCourses) {
-            c.showCourseDetails();
+        for(Course course: allCourses) {
+            course.showCourseDetails();
         }
         System.out.println("-----------------");
     }
@@ -35,7 +36,7 @@ public class PrivateSchool {
     public static void showAllTrainers() {
         System.out.println("All Trainers: ");
         System.out.println("-----------------");
-        for(models.Trainer trainer: allTrainers) {
+        for(Trainer trainer: allTrainers) {
             trainer.showTrainerDetails();
         }
         System.out.println("-----------------");
@@ -44,7 +45,7 @@ public class PrivateSchool {
     public static void showAllStudents() {
         System.out.println("All Students: ");
         System.out.println("------------------------");
-        for(models.Student student: allStudents) {
+        for(Student student: allStudents) {
             student.showStudentDetails();
         }
         System.out.println("------------------------");
@@ -53,7 +54,7 @@ public class PrivateSchool {
     public static void showAllAssignments() {
         System.out.println("All Assignments: ");
         System.out.println("------------------------");
-        for(models.Assignment assignment: allAssignments) {
+        for(Assignment assignment: allAssignments) {
             assignment.showAssignmentDetails();
         }
         System.out.println("------------------------");
@@ -85,7 +86,7 @@ public class PrivateSchool {
     }
 
     public static void showAllAssignmentsPerStudent() {
-        List<models.Student> allStudentsList = new ArrayList<>(allStudents);
+        List<Student> allStudentsList = new ArrayList<>(allStudents);
         System.out.println();
         for(int i = 0; i < allStudents.size(); i++) {
             allStudentsList.get(i).showStudentDetails();
@@ -94,10 +95,12 @@ public class PrivateSchool {
     }
 
     public static void showAllStudentsSignedUpInMoreThanOneCourse() {
-        List<models.Student> studentsList = allCourses.stream()
+        // Map all Students in one List
+        List<Student> studentsList = allCourses.stream()
                 .flatMap(course -> course.getStudents().stream()).toList();
 
-        Set<models.Student> studentsInMoreThanOneCourse = new TreeSet<>();
+        // Create new TreeSet to store non-duplicate Student entities
+        Set<Student> studentsInMoreThanOneCourse = new TreeSet<>();
         for(int i = 0; i < studentsList.size(); i++) {
             if(Collections.frequency(studentsList, studentsList.get(i)) > 1) {
                 studentsInMoreThanOneCourse.add(studentsList.get(i));
@@ -147,33 +150,15 @@ public class PrivateSchool {
                 break;
         }
 
-        for(models.Student student: allStudents) {
-            if(student.hasAssignment(start, end)) {
+        for(Student student: allStudents) {
+            if(student.hasAssignmentDue (start, end)) {
                 System.out.println("\nStudent " + student.getFirstName() + " " + student.getLastName() + " " + "has these assignments due: \n");
                 student.showListOfAssignmentsDue(start, end);
             }
         }
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public List<models.Course> getCourses() {
-        return allCourses;
-    }
-
-    public static Set<models.Trainer> getAllTrainers() {
-        return allTrainers;
-    }
-
-    public static Set<models.Student> getAllStudents() {
-        return allStudents;
-    }
-
-    public static List<models.Assignment> getAllAssignments() {
-        return allAssignments;
-    }
 
     @Override
     public String toString() {

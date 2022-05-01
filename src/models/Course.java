@@ -1,12 +1,12 @@
 package models;
 
-import utilities.Utilities;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Course  {
+
     private String title;
     private String stream;
     private String type;
@@ -16,22 +16,24 @@ public class Course  {
     public  Set<Student> students = new TreeSet<>();
     public static List<Assignment> assignments = new ArrayList<>();
 
+    final static int numOfTrainers = 8;
+    final static int numOfStudents = 20;
+
 
     public Course()  {
 
         readCourse(new Scanner(System.in));
 
-        System.out.print("How many trainers would you like to add to this course? : ");
-        int numOfTrainers = Utilities.integerInput();
+        System.out.print("Please Insert data for 8 trainers : ");
         for(int i = 0; i < numOfTrainers; i++) {
-            Trainer trainer = new models.Trainer();
+            Trainer trainer = new Trainer();
+            // add trainer to course structure
             this.trainers.add(trainer);
-
+            // add trainer to Master Set of Trainers
             PrivateSchool.allTrainers.add(trainer);
         }
 
-        System.out.print("How many Students would you like to add to this course? : ");
-        int numOfStudents = Utilities.integerInput();
+        System.out.print("Please insert data for 20 Students : ");
 
         for(int i = 0; i < numOfStudents; i++) {
             Student student = new models.Student();
@@ -53,8 +55,8 @@ public class Course  {
 
     public void readCourse (Scanner sc)  {
 
-        System.out.println("-----------------------------");
-        System.out.print("Please enter course's title: ");
+//        System.out.println("-----------------------------");
+        System.out.print("\n\nPlease enter course's title: ");
 
         this.title = sc.nextLine();
         System.out.print("Please enter course's stream: ");
@@ -127,7 +129,7 @@ public class Course  {
     public void printListOfAssignments() {
         System.out.println("Assignments for course: " + getTitle());
         System.out.println("----------");
-        for(Assignment assignment: this.assignments) {
+        for(Assignment assignment: assignments) {
             assignment.showAssignmentDetails();
         }
     }
@@ -141,7 +143,7 @@ public class Course  {
 
     public boolean addNewAssignment(Assignment assignment) {
         if(findAssignment(assignment) < 0) {
-            this.assignments.add(assignment);
+            assignments.add(assignment);
             return true;
         }
         else {
@@ -150,7 +152,7 @@ public class Course  {
     }
 
     private int findAssignment(Assignment assignment) {
-        return this.assignments.indexOf(assignment);
+        return assignments.indexOf(assignment);
     }
 
     @Override
@@ -168,48 +170,6 @@ public class Course  {
 
     public String getTitle() {
         return title;
-    }
-    public String getStream() {
-        return stream;
-    }
-    public void setStream(String stream) {
-        this.stream = stream;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public LocalDate getStart_date() {
-        return start_date;
-    }
-
-    public void setStart_date(LocalDate start_date) {
-        this.start_date = start_date;
-    }
-
-    public LocalDate getEnd_date() {
-        return end_date;
-    }
-
-    public void setEnd_date(LocalDate end_date) {
-        this.end_date = end_date;
-    }
-
-    public TreeSet<Trainer> getTrainers() {
-        return (TreeSet<Trainer>) trainers;
-    }
-
-    public void setTrainers(TreeSet<Trainer> trainers) {
-        this.trainers = trainers;
     }
 
     public List<Student> getStudents() {

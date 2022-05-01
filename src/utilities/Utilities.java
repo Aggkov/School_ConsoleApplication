@@ -11,7 +11,12 @@ public final class Utilities {
 
 
     public static void Menu(int mode) {
+        boolean quit = false;
+        while (!quit) {
         Scanner sc = new Scanner(System.in);
+        System.out.println("\n\n========================= MENU ===========================");
+
+
         System.out.println("\nAvailable actions:\nPress: \n");
         System.out.println("1  - Show all the students\n" +
                 "2  - Show all the trainers\n" +
@@ -26,8 +31,8 @@ public final class Utilities {
                 "more assignments on the same calendar week" + "\n" +
                 "11  - Type 11 to quit the application");
 
-        boolean quit = false;
-        while (!quit) {
+            System.out.println("====================================================");
+
             System.out.print("Choose your action: ");
 
             int action = integerInput();
@@ -105,7 +110,7 @@ public final class Utilities {
                     break;
 
                 case 11:
-                    System.out.println("Quiting application....");
+                    System.out.println("Quiting application ....");
                     quit = true;
             }
         }
@@ -121,8 +126,8 @@ public final class Utilities {
                 break;
             }
         }
-        int n = sc.nextInt();
-        return n;
+        int num = sc.nextInt();
+        return num;
     }
 
     public static LocalDate dateInput() {
@@ -142,7 +147,7 @@ public final class Utilities {
                     formattedDate = LocalDate.parse(Date, formatter);
                     break;
 
-                } catch (DateTimeParseException ex) {
+                } catch (DateTimeParseException e) {
                     System.out.println("Please insert date in valid format! (dd-MM-yyyy)");
                 }
             }
