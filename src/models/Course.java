@@ -28,6 +28,7 @@ public class Course  {
         for(int i = 0; i < numOfTrainers; i++) {
             Trainer trainer = new Trainer();
             // add trainer to course structure
+
             this.trainers.add(trainer);
             // add trainer to Master Set of Trainers
             PrivateSchool.allTrainers.add(trainer);
@@ -55,7 +56,6 @@ public class Course  {
 
     public void readCourse (Scanner sc)  {
 
-//        System.out.println("-----------------------------");
         System.out.print("\n\nPlease enter course's title: ");
 
         this.title = sc.nextLine();
@@ -108,32 +108,6 @@ public class Course  {
         return true;
     }
 
-    public void showCourseDetails() {
-        System.out.println("==================================================================");
-        System.out.print("Course {" + title.toUpperCase() + "|" + stream.toUpperCase() + "|" + type.toUpperCase() + "|"
-                + start_date + "|" + end_date + "|}" + "\n");
-    }
-
-    public void printListOfStudents() {
-        for(Student student : this.students) {
-            student.showStudentDetails();
-        }
-    }
-
-    public void printListOfTrainers() {
-        for(Trainer trainer: this.trainers) {
-            trainer.showTrainerDetails();
-        }
-    }
-    // For each assignment in Course class
-    public void printListOfAssignments() {
-        System.out.println("Assignments for course: " + getTitle());
-        System.out.println("----------");
-        for(Assignment assignment: assignments) {
-            assignment.showAssignmentDetails();
-        }
-    }
-
     public boolean addNewTrainer(Trainer trainer) {
         if(!trainers.add(trainer)) {
             return false;
@@ -153,6 +127,33 @@ public class Course  {
 
     private int findAssignment(Assignment assignment) {
         return assignments.indexOf(assignment);
+    }
+
+    public void showCourseDetails() {
+        System.out.println("==================================================================");
+        System.out.print("Course {" + title.toUpperCase() + "|" + stream.toUpperCase() + "|" + type.toUpperCase() + "|"
+                + start_date + "|" + end_date + "|}" + "\n");
+    }
+
+    public void printListOfStudents() {
+        for(Student student : this.students) {
+            student.showStudentDetails();
+        }
+    }
+
+    public void printListOfTrainers() {
+        for(Trainer trainer: this.trainers) {
+            trainer.showTrainerDetails();
+        }
+    }
+
+    // For each assignment in Course class
+    public void printListOfAssignments() {
+        System.out.println("Assignments for course: " + getTitle());
+        System.out.println("----------");
+        for(Assignment assignment: assignments) {
+            assignment.showAssignmentDetails();
+        }
     }
 
     @Override

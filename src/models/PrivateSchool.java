@@ -158,8 +158,6 @@ public class PrivateSchool {
         }
     }
 
-
-
     @Override
     public String toString() {
         return "=============================" + '\n' +

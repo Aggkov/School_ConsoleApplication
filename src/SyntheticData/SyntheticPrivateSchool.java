@@ -330,22 +330,6 @@ public class SyntheticPrivateSchool {
         }
     }
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public  List<Course> getAllCourses() {
-//        return allCourses;
-//    }
-//
-//    public  Set<Trainer> getAllTrainers() {
-//        return allTrainers;
-//    }
-//
-//    public  Set<Student> getAllStudents() {
-//        return allStudents;
-//    }
-
     @Override
     public String toString() {
         return "SyntheticPrivateSchool{" +

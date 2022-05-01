@@ -81,8 +81,7 @@ public class Student implements Comparable<Student> {
     }
 
     public boolean addAssignment(Assignment assignment) {
-
-            if (findAssignment(assignment) < 0) {
+        if (findAssignment(assignment) < 0) {
                 assignments.add(assignment);
 
                 return true;
