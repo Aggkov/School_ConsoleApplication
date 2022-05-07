@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Trainer implements Comparable<Trainer>{
@@ -20,6 +21,7 @@ public class Trainer implements Comparable<Trainer>{
     }
 
     public void readTrainer(Scanner sc) {
+        System.out.println();
         System.out.print("Type trainer's firstname: ");
 
         this.firstName = sc.nextLine().trim();
@@ -38,7 +40,19 @@ public class Trainer implements Comparable<Trainer>{
     @Override
     public int compareTo(Trainer other) {
         return this.lastName.compareTo(other.lastName);
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trainer trainer = (Trainer) o;
+        return Objects.equals(firstName, trainer.firstName) && Objects.equals(lastName, trainer.lastName) && Objects.equals(subject, trainer.subject);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, subject);
     }
 
     @Override

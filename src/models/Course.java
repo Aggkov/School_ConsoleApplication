@@ -1,5 +1,7 @@
 package models;
 
+import data.Data;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,34 +18,35 @@ public class Course  {
     public  Set<Student> students = new TreeSet<>();
     public static List<Assignment> assignments = new ArrayList<>();
 
-    final static int numOfTrainers = 8;
-    final static int numOfStudents = 20;
+    final int numOfTrainers = 8;
+    final int numOfStudents = 20;
 
+    Data data_instance = Data.getData_instance();
 
     public Course()  {
 
         readCourse(new Scanner(System.in));
 
-        System.out.print("Please Insert data for 8 trainers : ");
+        System.out.print("Please Insert data for 8 trainers for this Course : " + this.title);
         for(int i = 0; i < numOfTrainers; i++) {
             Trainer trainer = new Trainer();
-            // add trainer to course structure
 
+            // add trainer to course structure
             this.trainers.add(trainer);
+
             // add trainer to Master Set of Trainers
-            PrivateSchool.allTrainers.add(trainer);
+            data_instance.allTrainers.add(trainer);
         }
 
-        System.out.print("Please insert data for 20 Students : ");
+        System.out.print("Please insert data for 20 Students for this Course: " + this.title);
 
         for(int i = 0; i < numOfStudents; i++) {
-            Student student = new models.Student();
+            Student student = new Student();
             this.students.add(student);
 
-            PrivateSchool.allStudents.add(student);
+            data_instance.allStudents.add(student);
         }
     }
-
     public Course(String title, String stream, String type, LocalDate start_date, LocalDate end_date) {
         this.title = title;
         this.stream = stream;

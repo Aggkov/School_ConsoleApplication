@@ -15,6 +15,7 @@ public class Assignment {
     private int totalMark;
 
     public Assignment() {
+
         readAssignment(new Scanner(System.in));
     }
 
@@ -27,7 +28,7 @@ public class Assignment {
     }
     // User Input for Assignments
     public void readAssignment(Scanner sc) {
-        System.out.println("------------------------------------");
+        System.out.println();
         System.out.print("Please enter the assignment's title: ");
         this.title = sc.nextLine();
         System.out.print("Please enter the assignment's description: ");
@@ -42,7 +43,7 @@ public class Assignment {
                 this.subDateTime = LocalDate.parse(subDate, formatter);
                 break;
             } catch (DateTimeParseException e) {
-                System.out.print("Please insert date in valid format! (dd-MM-yyyy)");
+                System.out.print("Please insert date in valid format! (dd-MM-yyyy): ");
 
             }
         }

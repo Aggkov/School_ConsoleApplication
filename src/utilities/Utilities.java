@@ -1,7 +1,7 @@
 package utilities;
 
-import SyntheticData.SyntheticPrivateSchool;
-import models.PrivateSchool;
+import functions.Functions;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,12 +9,28 @@ import java.util.Scanner;
 
 public final class Utilities {
 
+    // Singleton
+    private static Utilities utils_instance =  null;
 
-    public static void Menu(int mode) {
+    private Utilities() {
+
+    }
+
+    public static Utilities getUtilitiesInstance() {
+        if(utils_instance == null)  {
+            utils_instance = new Utilities();
+        }
+        return utils_instance;
+    }
+
+    public void Menu() {
+
+        Functions functions_instance = Functions.getFunctionsInstance();
+
         boolean quit = false;
         while (!quit) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("\n\n========================= MENU ===========================");
+        System.out.println("========================= MENU ===========================");
 
 
         System.out.println("\nAvailable actions:\nPress: \n");
@@ -39,74 +55,43 @@ public final class Utilities {
 
             switch (action) {
                 case 1:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllStudents();
-                    else
-                        PrivateSchool.showAllStudents();
+                    functions_instance.showAllStudents();
                     break;
 
                 case 2:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllTrainers();
-                    else
-                        PrivateSchool.showAllTrainers();
+                    functions_instance.showAllTrainers();
                     break;
 
                 case 3:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllAssignments();
-                    else
-                        PrivateSchool.showAllAssignments();
+                    functions_instance.showAllAssignments();
                     break;
 
                 case 4:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllCourses();
-                    else
-                        PrivateSchool.showAllCourses();
+                    functions_instance.showAllCourses();
                     break;
 
                 case 5:
-
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllStudentsPerCourse();
-                    else
-                        PrivateSchool.showAllStudentsPerCourse();
+                    functions_instance.showAllStudentsPerCourse();
                     break;
 
                 case 6:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllTrainersPerCourse();
-                    else
-                        PrivateSchool.showAllTrainersPerCourse();
+                    functions_instance.showAllTrainersPerCourse();
                     break;
 
                 case 7:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllAssignmentsPerCourse();
-                    else
-                        PrivateSchool.showAllAssignmentsPerCourse();
+                    functions_instance.showAllAssignmentsPerCourse();
                     break;
 
                 case 8:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllAssignmentsPerStudent();
-                    else
-                        PrivateSchool.showAllAssignmentsPerStudent();
+                    functions_instance.showAllAssignmentsPerStudent();
                     break;
 
                 case 9:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.showAllStudentsSignedUpInMoreThanOneCourse();
-                    else
-                        PrivateSchool.showAllStudentsSignedUpInMoreThanOneCourse();
+                    functions_instance.showAllStudentsSignedUpInMoreThanOneCourse();
                     break;
 
                 case 10:
-                    if (mode == 2)
-                        SyntheticPrivateSchool.dateQuery();
-                    else
-                        PrivateSchool.dateQuery();
+                    functions_instance.dateQuery();
                     break;
 
                 case 11:
@@ -116,7 +101,7 @@ public final class Utilities {
         }
     }
 
-    public static int integerInput() {
+    public int integerInput() {
         Scanner sc = new Scanner(System.in);
         while (true) {
             if (!sc.hasNextInt()) {
@@ -130,7 +115,7 @@ public final class Utilities {
         return num;
     }
 
-    public static LocalDate dateInput() {
+    public LocalDate dateInput() {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Please type a date for Assignment submission (dd-MM-yyyy): ");

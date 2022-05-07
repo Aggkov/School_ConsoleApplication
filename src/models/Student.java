@@ -1,12 +1,11 @@
 package models;
 
+import data.Data;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Student implements Comparable<Student> {
@@ -16,13 +15,14 @@ public class Student implements Comparable<Student> {
     private int tuitionFees;
     private ArrayList <Assignment> assignments = new ArrayList<>();
 
-    final static int numOfAssignments = 4;
+    final static int numOfAssignments = 1;
+
+    Data data_instance = Data.getData_instance();
 
     public Student() {
         readStudent(new Scanner(System.in));
 
-        System.out.println("Please insert data for 4 Assignments for this Student :");
-//        int numOfAssignments = Utilities.integerInput();
+        System.out.println("Please insert data for 4 Assignments for this Student :" + this.firstName.toUpperCase() + " " + this.lastName.toUpperCase());
         for(int i = 0; i < numOfAssignments; i++) {
             Assignment assignment = new Assignment();
 
@@ -30,7 +30,7 @@ public class Student implements Comparable<Student> {
             this.assignments.add(assignment);
 
             // Add assignment to Master List of all Assignments
-            PrivateSchool.allAssignments.add(assignment);
+            data_instance.allAssignments.add(assignment);
 
             // Add assignment to Course class Structure
             Course.assignments.add(assignment);
@@ -47,7 +47,7 @@ public class Student implements Comparable<Student> {
 
     // User Input for Students
     public void readStudent(Scanner sc) {
-        System.out.println("----------------------------------");
+        System.out.println();
         System.out.print("Please enter student's first name: ");
         this.firstName = sc.nextLine().trim();
 
@@ -77,7 +77,6 @@ public class Student implements Comparable<Student> {
             this.tuitionFees = sc.nextInt();
         } while ( tuitionFees > 5000 || tuitionFees < 100);
         System.out.println("----------------------------------");
-        System.out.println("Student was successfully created!");
     }
 
     public boolean addAssignment(Assignment assignment) {
@@ -137,7 +136,13 @@ public class Student implements Comparable<Student> {
 
     @Override
     public int compareTo(Student other) {
-        return this.lastName.compareTo(other.lastName);
+        int lastNameCompare = this.lastName.compareTo(other.lastName);
+        if(lastNameCompare != 0) {
+            return lastNameCompare;
+        }
+        else {
+            return this.firstName.compareTo(other.firstName);
+        }
     }
 
     public String getFirstName() {
@@ -150,6 +155,14 @@ public class Student implements Comparable<Student> {
 
     public ArrayList<models.Assignment> getAssignments() {
         return this.assignments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return tuitionFees == student.tuitionFees && Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(dateOfBirth, student.dateOfBirth) && Objects.equals(assignments, student.assignments);
     }
 
     @Override
